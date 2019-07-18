@@ -20,16 +20,45 @@
 // SOFTWARE.
 
 #include "luacrypto_module.h"
+#include "sol.hpp"
+#include "dmrc.hpp"
 
-static int luaopen_luacrypto(lua_State* L)
+static int setkey(lua_State* L)
+{
+    sol::stack_object object(L, 1);
+
+    std::string strRC = object.as<std::string>();
+
+    return 1;
+}
+
+static int rc4(lua_State* L)
+{
+    sol::stack_object object(L, 1);
+
+    std::string strRC = object.as<std::string>();
+
+    return 1;
+}
 
 LUAMOD_API int luaopen_luacrypto(lua_State* L)
 {
     luaL_Reg l[] = {
-        { NULL, NULL },
+        { "setkey", setkey },
+        { "rc4", rc4 },
     };
-    
+
+    sol::state_view lua(L);
+
+    lua.new_usertype<CDMRC>("CDMRC",
+        sol::constructors<CDMRC()>(),
+        "SetKey", &CDMRC::SetKey,
+        "Encrypt", sol::overload(sol::resolve<std::string&(std::string&)>(&CDMRC::Encrypt), sol::resolve< char* (char* pBuf, size_t len)>(&CDMRC::Encrypt)),
+        "Decrypt", sol::overload(sol::resolve<std::string&(std::string&)>(&CDMRC::Decrypt), sol::resolve< char* (char* pBuf, size_t len)>(&CDMRC::Decrypt))
+        );
+
     luaL_newlib(L, l);
+
     return 1;
 }
 
