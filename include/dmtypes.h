@@ -19,21 +19,18 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-#include "luacrypto_module.h"
+#ifndef __DMTYPES_H_INCLUDE__
+#define __DMTYPES_H_INCLUDE__
 
-LUAMOD_API int luaopen_luacrypto(lua_State* L)
-{
-    luaL_Reg l[] = {
-        { NULL, NULL },
-    };
-    
-    luaL_newlib(L, l);
-    return 1;
-}
+#ifdef _MSC_VER
+#include "msinttypes/stdint.h"
+#include "msinttypes/inttypes.h"
+#else
+// Other compilers should have this.
+#include <stdint.h>
+#include <inttypes.h>
+#include <sys/time.h>
 
-LUAMOD_API int require_luacrypto(lua_State* L)
-{
-    luaL_requiref(L, "luacrypto", luaopen_luacrypto, 0);
-    printf("lua module: require luacrypto\n");
-    return 1;
-}
+#endif
+
+#endif // __DMTYPES_H_INCLUDE__
