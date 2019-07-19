@@ -22,13 +22,12 @@
 #include "luacrypto_module.h"
 #include "sol.hpp"
 #include "dmrc.hpp"
-
+#include "dmdes.h"
 LUAMOD_API int luaopen_luacrypto(lua_State* L)
 {
     luaL_Reg l[] = { 0 };
 
     sol::state_view lua(L);
-
     lua.new_usertype<CDMRC>("rc4",
         sol::constructors<CDMRC()>(),
         "SetKey", &CDMRC::SetKey,
