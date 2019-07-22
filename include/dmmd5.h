@@ -138,12 +138,6 @@ class CDMMD5 {
             format[i * 2 + 1] = Value2Hexdig(*p & 0xf);
         }
     }
-    static inline void GetMD5(unsigned char* input, unsigned int len,
-                              unsigned char md5Val[16]) {
-        CDMMD5 ctx;
-        ctx.MD5Update(input, len);
-        ctx.MD5Final(md5Val);
-    }
 
     inline std::string GetMD5(std::string& strData) {
         unsigned char format[33] = {0};
@@ -151,6 +145,13 @@ class CDMMD5 {
         MD5Update((unsigned char*)strData.data(), strData.size());
         MD5Format(format);
         return (char*)format;
+    }
+
+    static inline void GetMD5(unsigned char* input, unsigned int len,
+                              unsigned char md5Val[16]) {
+        CDMMD5 ctx;
+        ctx.MD5Update(input, len);
+        ctx.MD5Final(md5Val);
     }
 
     static inline char Value2Hexdig(unsigned char val) {
