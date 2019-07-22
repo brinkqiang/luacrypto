@@ -23,6 +23,8 @@
 #include "sol.hpp"
 #include "dmrc.hpp"
 #include "dmdes.h"
+#include "dmmd5.h"
+
 LUAMOD_API int luaopen_luacrypto(lua_State* L)
 {
     luaL_Reg l[] = { 0 };
@@ -33,6 +35,11 @@ LUAMOD_API int luaopen_luacrypto(lua_State* L)
         "SetKey", &CDMRC::SetKey,
         "Encrypt", sol::overload(sol::resolve<std::string(std::string&)>(&CDMRC::Encrypt), sol::resolve< char* (char* pBuf, size_t len)>(&CDMRC::Encrypt)),
         "Decrypt", sol::overload(sol::resolve<std::string(std::string&)>(&CDMRC::Decrypt), sol::resolve< char* (char* pBuf, size_t len)>(&CDMRC::Decrypt))
+        );
+
+    lua.new_usertype<CDMMD5>("md5",
+        sol::constructors<CDMMD5()>(),
+        "GetMD5", sol::overload(sol::resolve<std::string(std::string&)>(&CDMMD5::GetMD5))
         );
 
     luaL_newlib(L, l);

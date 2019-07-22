@@ -145,13 +145,11 @@ class CDMMD5 {
         ctx.MD5Final(md5Val);
     }
 
-    static inline std::string GetMD5(unsigned char* input, unsigned int len) {
+    inline std::string GetMD5(std::string& strData) {
         unsigned char format[33] = {0};
 
-        CDMMD5 ctx;
-        ctx.MD5Update(input, len);
-        ctx.MD5Format(format);
-
+        MD5Update((unsigned char*)strData.data(), strData.size());
+        MD5Format(format);
         return (char*)format;
     }
 
