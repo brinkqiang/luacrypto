@@ -42,6 +42,11 @@ LUAMOD_API int luaopen_luacrypto(lua_State* L)
         "GetMD5", sol::overload(sol::resolve<std::string(std::string&)>(&CDMMD5::GetMD5))
         );
 
+    lua.new_usertype<CDMMD5>("md5",
+        sol::constructors<CDMMD5()>(),
+        "GetMD5", sol::overload(sol::resolve<std::string(std::string&)>(&CDMMD5::GetMD5))
+        );
+
     luaL_newlib(L, l);
 
     return 1;
