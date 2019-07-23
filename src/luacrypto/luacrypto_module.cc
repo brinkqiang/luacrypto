@@ -24,6 +24,7 @@
 #include "dmrc.hpp"
 #include "dmdes.h"
 #include "dmmd5.h"
+#include "dmcrc.h"
 
 LUAMOD_API int luaopen_luacrypto(lua_State* L)
 {
@@ -42,10 +43,21 @@ LUAMOD_API int luaopen_luacrypto(lua_State* L)
         "GetMD5", sol::overload(sol::resolve<std::string(std::string&)>(&CDMMD5::GetMD5))
         );
 
-    lua.new_usertype<CDMMD5>("md5",
-        sol::constructors<CDMMD5()>(),
-        "GetMD5", sol::overload(sol::resolve<std::string(std::string&)>(&CDMMD5::GetMD5))
+    lua.new_usertype<DMDES3Context>("DMDES3Context");
+    lua.new_usertype<DMDES3Block>("DMDES3Block");
+
+    lua.new_usertype<CDMDes>("des",
+        sol::constructors<CDMDes()>(),
+        "DESGenKey", sol::overload(sol::resolve<void(DMDES3Block *pIV)>(&CDMDes::DESGenKey)),
+        "DESGenEncKeySche", sol::overload(sol::resolve<void(DMDES3Context *pCtx, DMDES3Block &oKey)>(&CDMDes::DESGenEncKeySche)),
+
+        "Encode", sol::overload(sol::resolve<std::string(DMDES3Context *pCtx, DMDES3Block *pIV, std::string& strInput)>(&CDMDes::Encode)),
+        "Decode", sol::overload(sol::resolve<std::string(DMDES3Context *pCtx, DMDES3Block *pIV, std::string& strInput)>(&CDMDes::Decode))
         );
+
+    lua.new_usertype<CDMCRC>("crc",
+        sol::constructors<CDMCRC()>(),
+        "GetCRC", sol::overload(&CDMCRC::GetCRC));
 
     luaL_newlib(L, l);
 

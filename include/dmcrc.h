@@ -3,7 +3,7 @@
 #define __DMCRC_H_INCLUDE__
 
 #include <stddef.h>
-#include "dmos.h"
+#include "dmtypes.h"
 
 class CDMCRC;
 class CDMCRCTableInit;
@@ -90,6 +90,11 @@ class CDMCRC {
 
     inline uint32_t GetDigest() const {
         return _value ^ 0xFFFFFFFF;
+    }
+
+    inline uint32_t GetCRC(std::string& strData)
+    {
+        return CalculateDigest(strData.data(), strData.size());
     }
 
     static  inline uint32_t CalculateDigest(const void* data, size_t size) {

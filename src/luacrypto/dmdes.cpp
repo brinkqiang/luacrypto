@@ -80,3 +80,28 @@ void CDMDes::DESDecryptNCBC(DMDES3Context	 *pCtx,
     memcpy(pIV, (const void*)&IVBak, sizeof(DMDES3Block));
 }
 
+std::string CDMDes::Encode(DMDES3Context *pCtx, DMDES3Block *pIV, std::string& strInput)
+{
+    DMDES3Block IVBak;
+    memcpy(&IVBak, (const void*)pIV, sizeof(DMDES3Block));
+    std::string strOutput;
+    int nSize = (strInput.size() % 8) ? ((strInput.size() / 8) + 1) * 8 : (strInput.size());
+    strOutput.resize(nSize);
+    DES3CryptCBC(pCtx, DES_ENCRYPT, strInput.size(), pIV, (uint8_t *)strInput.data(), (uint8_t *)strOutput.data());
+    memcpy(pIV, (const void*)&IVBak, sizeof(DMDES3Block));
+
+    return strOutput;
+}
+
+std::string CDMDes::Decode(DMDES3Context *pCtx, DMDES3Block *pIV, std::string& strInput)
+{
+    DMDES3Block IVBak;
+    memcpy(&IVBak, (const void*)pIV, sizeof(DMDES3Block));
+    std::string strOutput;
+    strOutput.resize(strInput.size());
+    DES3CryptCBC(pCtx, DES_DECRYPT, strInput.size(), pIV, (uint8_t *)strInput.data(), (uint8_t *)strOutput.data());
+    memcpy(pIV, (const void*)&IVBak, sizeof(DMDES3Block));
+
+    return strOutput;
+}
+

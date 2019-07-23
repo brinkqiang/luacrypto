@@ -29,7 +29,7 @@
 #include <stdio.h>
 #include <time.h>
 #include <dmtypes.h>
-
+#include <string>
 /**
 * @brief DES enc/dec type macros
 * DES±àÂë/½âÂëºê
@@ -210,6 +210,14 @@ public:
                                 int32_t nInLen,
                                 uint8_t *pInput,
                                 uint8_t *pOutput);
+
+    std::string Encode(DMDES3Context *pCtx,
+        DMDES3Block *pIV,
+        std::string& strInput);
+
+    std::string Decode(DMDES3Context *pCtx,
+        DMDES3Block *pIV,
+        std::string& strInput);
 };
 
     /** @} */
