@@ -101,7 +101,7 @@ std::string CDMDes::Decode(DMDES3Context *pCtx, DMDES3Block *pIV, std::string& s
     strOutput.resize(strInput.size());
     DES3CryptCBC(pCtx, DES_DECRYPT, strInput.size(), pIV, (uint8_t *)strInput.data(), (uint8_t *)strOutput.data());
     memcpy(pIV, (const void*)&IVBak, sizeof(DMDES3Block));
-
+    strOutput.resize(strlen(strOutput.data()));
     return strOutput;
 }
 

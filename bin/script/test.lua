@@ -17,15 +17,17 @@ print(str3)
 
 local des = des.new()
 local DMDES3Block = DMDES3Block.new()
-local DMDES3Context = DMDES3Context.new()
+local DMDES3ContextEncKey = DMDES3Context.new()
+local DMDES3ContextDecKey = DMDES3Context.new()
 
 des:DESGenKey(DMDES3Block)
-des:DESGenEncKeySche(DMDES3Context, DMDES3Block)
+des:DESGenEncKeySche(DMDES3ContextEncKey, DMDES3Block)
+des:DESGenDecKeySche(DMDES3ContextDecKey, DMDES3Block)
 
-local encode = des:Encode(DMDES3Context, DMDES3Block, "hello world")
+local encode = des:Encode(DMDES3ContextEncKey, DMDES3Block, "hello world")
 
 print(encode)
 
-local decode = des:Decode(DMDES3Context, DMDES3Block, encode)
+local decode = des:Decode(DMDES3ContextDecKey, DMDES3Block, encode)
 
 print(decode)

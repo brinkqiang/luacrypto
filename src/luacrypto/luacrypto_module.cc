@@ -50,7 +50,7 @@ LUAMOD_API int luaopen_luacrypto(lua_State* L)
         sol::constructors<CDMDes()>(),
         "DESGenKey", sol::overload(sol::resolve<void(DMDES3Block *pIV)>(&CDMDes::DESGenKey)),
         "DESGenEncKeySche", sol::overload(sol::resolve<void(DMDES3Context *pCtx, DMDES3Block &oKey)>(&CDMDes::DESGenEncKeySche)),
-
+        "DESGenDecKeySche", sol::overload(sol::resolve<void(DMDES3Context *pCtx, DMDES3Block &oKey)>(&CDMDes::DESGenDecKeySche)),
         "Encode", sol::overload(sol::resolve<std::string(DMDES3Context *pCtx, DMDES3Block *pIV, std::string& strInput)>(&CDMDes::Encode)),
         "Decode", sol::overload(sol::resolve<std::string(DMDES3Context *pCtx, DMDES3Block *pIV, std::string& strInput)>(&CDMDes::Decode))
         );
