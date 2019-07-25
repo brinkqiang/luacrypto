@@ -1,11 +1,11 @@
 
-local luacrypto = require("luacrypto")
+require("luacrypto")
 
 local rc = rc4.new()
 rc:SetKey("hello world")
 
-local str = rc:Encrypt("hello world")
-print(rc:Decrypt(str))
+local str = rc:Encode("hello world")
+print(rc:Decode(str))
 
 local md5 = md5.new()
 local str2 = md5:GetMD5("hello world")
@@ -16,18 +16,18 @@ local str3 = crc:GetCRC("hello world")
 print(str3)
 
 local des = des.new()
-local DMDES3Block = DMDES3Block.new()
-local DMDES3ContextEncKey = DMDES3Context.new()
-local DMDES3ContextDecKey = DMDES3Context.new()
+local DES3Block = DES3Block.new()
+local DES3ContextEncKey = DES3Context.new()
+local DES3ContextDecKey = DES3Context.new()
 
-des:DESGenKey(DMDES3Block)
-des:DESGenEncKeySche(DMDES3ContextEncKey, DMDES3Block)
-des:DESGenDecKeySche(DMDES3ContextDecKey, DMDES3Block)
+des:DESGenKey(DES3Block)
+des:DESGenEncodeKey(DES3ContextEncKey, DES3Block)
+des:DESGenDecodeKey(DES3ContextDecKey, DES3Block)
 
-local encode = des:Encode(DMDES3ContextEncKey, DMDES3Block, "hello world")
+local encode = des:Encode(DES3ContextEncKey, DES3Block, "hello world")
 
 print(encode)
 
-local decode = des:Decode(DMDES3ContextDecKey, DMDES3Block, encode)
+local decode = des:Decode(DES3ContextDecKey, DES3Block, encode)
 
 print(decode)

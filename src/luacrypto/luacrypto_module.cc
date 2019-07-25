@@ -34,8 +34,8 @@ LUAMOD_API int luaopen_luacrypto(lua_State* L)
     lua.new_usertype<CDMRC>("rc4",
         sol::constructors<CDMRC()>(),
         "SetKey", &CDMRC::SetKey,
-        "Encrypt", sol::overload(sol::resolve<std::string(std::string&)>(&CDMRC::Encrypt), sol::resolve< char* (char* pBuf, size_t len)>(&CDMRC::Encrypt)),
-        "Decrypt", sol::overload(sol::resolve<std::string(std::string&)>(&CDMRC::Decrypt), sol::resolve< char* (char* pBuf, size_t len)>(&CDMRC::Decrypt))
+        "Encode", sol::overload(sol::resolve<std::string(std::string&)>(&CDMRC::Encrypt), sol::resolve< char* (char* pBuf, size_t len)>(&CDMRC::Encrypt)),
+        "Decode", sol::overload(sol::resolve<std::string(std::string&)>(&CDMRC::Decrypt), sol::resolve< char* (char* pBuf, size_t len)>(&CDMRC::Decrypt))
         );
 
     lua.new_usertype<CDMMD5>("md5",
@@ -43,14 +43,14 @@ LUAMOD_API int luaopen_luacrypto(lua_State* L)
         "GetMD5", sol::overload(sol::resolve<std::string(std::string&)>(&CDMMD5::GetMD5))
         );
 
-    lua.new_usertype<DMDES3Context>("DMDES3Context");
-    lua.new_usertype<DMDES3Block>("DMDES3Block");
+    lua.new_usertype<DMDES3Context>("DES3Context");
+    lua.new_usertype<DMDES3Block>("DES3Block");
 
     lua.new_usertype<CDMDes>("des",
         sol::constructors<CDMDes()>(),
         "DESGenKey", sol::overload(sol::resolve<void(DMDES3Block *pIV)>(&CDMDes::DESGenKey)),
-        "DESGenEncKeySche", sol::overload(sol::resolve<void(DMDES3Context *pCtx, DMDES3Block &oKey)>(&CDMDes::DESGenEncKeySche)),
-        "DESGenDecKeySche", sol::overload(sol::resolve<void(DMDES3Context *pCtx, DMDES3Block &oKey)>(&CDMDes::DESGenDecKeySche)),
+        "DESGenEncodeKey", sol::overload(sol::resolve<void(DMDES3Context *pCtx, DMDES3Block &oKey)>(&CDMDes::DESGenEncKeySche)),
+        "DESGenDecodeKey", sol::overload(sol::resolve<void(DMDES3Context *pCtx, DMDES3Block &oKey)>(&CDMDes::DESGenDecKeySche)),
         "Encode", sol::overload(sol::resolve<std::string(DMDES3Context *pCtx, DMDES3Block *pIV, std::string& strInput)>(&CDMDes::Encode)),
         "Decode", sol::overload(sol::resolve<std::string(DMDES3Context *pCtx, DMDES3Block *pIV, std::string& strInput)>(&CDMDes::Decode))
         );
