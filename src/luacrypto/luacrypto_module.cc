@@ -32,6 +32,7 @@ namespace lua_module
     static sol::table require_api(sol::this_state L) {
         sol::state_view lua(L);
         sol::table module = lua.create_table();
+
         module.new_usertype<CDMRC>("rc4",
             sol::constructors<CDMRC()>(),
             "SetKey", &CDMRC::SetKey,
@@ -71,6 +72,7 @@ namespace lua_module
         return module;
     }
 }
+
 LUAMOD_API int luaopen_luacrypto(lua_State* L)
 {
     return sol::stack::call_lua(L, 1, lua_module::require_api);
