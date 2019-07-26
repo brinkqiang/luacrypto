@@ -25,6 +25,7 @@
 #include "dmdes.h"
 #include "dmmd5.h"
 #include "dmcrc.h"
+#include "dmbase64.h"
 
 LUAMOD_API int luaopen_luacrypto(lua_State* L)
 {
