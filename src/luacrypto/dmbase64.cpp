@@ -23,17 +23,24 @@
 #include <stdio.h>
 #include <stdexcept>
 
-static const std::string base64_chars =
-    "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-    "abcdefghijklmnopqrstuvwxyz"
-    "0123456789+/";
+static const std::string base64_chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
 
 static inline bool is_base64(unsigned char c)
 {
     return (isalnum(c) || (c == '+') || (c == '/'));
 }
 
-std::string Base64Encode(const std::string &s)
+CDMBase64::CDMBase64()
+{
+
+}
+
+CDMBase64::~CDMBase64()
+{
+
+}
+
+std::string CDMBase64::Base64Encode(const std::string &s)
 {
     const char *bytes_to_encode = s.c_str();
     unsigned int in_len = s.size();
@@ -80,7 +87,7 @@ std::string Base64Encode(const std::string &s)
     return ret;
 }
 
-std::string Base64Decode(const std::string &s)
+std::string CDMBase64::Base64Decode(const std::string &s)
 {
     int in_len = s.size();
     int i = 0;
@@ -127,7 +134,7 @@ std::string Base64Decode(const std::string &s)
     return ret;
 }
 
-std::string hex2bin(const std::string &s)
+std::string CDMBase64::hex2bin(const std::string &s)
 {
     if (s.size() % 2)
         throw std::runtime_error("Odd hex data size");
@@ -162,7 +169,7 @@ std::string hex2bin(const std::string &s)
     return r;
 }
 
-std::string bin2hex(const std::string &s)
+std::string CDMBase64::bin2hex(const std::string &s)
 {
     static const char lookup[] = "0123456789abcdef";
     std::string r;

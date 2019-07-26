@@ -60,6 +60,14 @@ LUAMOD_API int luaopen_luacrypto(lua_State* L)
         sol::constructors<CDMCRC()>(),
         "GetCRC", sol::overload(&CDMCRC::GetCRC));
 
+    lua.new_usertype<CDMBase64>("base64",
+        sol::constructors<CDMBase64()>(),
+        "Encode", sol::overload(&CDMBase64::Base64Encode),
+        "Decode", sol::overload(&CDMBase64::Base64Decode),
+        "hex2bin", sol::overload(&CDMBase64::hex2bin),
+        "bin2hex", sol::overload(&CDMBase64::bin2hex)
+        );
+
     luaL_newlib(L, l);
 
     return 1;

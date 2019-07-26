@@ -15,6 +15,10 @@ local crc = crc.new()
 local str3 = crc:GetCRC("hello world")
 print(str3)
 
+local base64 = base64.new()
+local str4 = base64:Encode("hello world")
+print(base64:Encode(str4))
+
 local des = des.new()
 local DES3Block = DES3Block.new()
 local DES3ContextEncKey = DES3Context.new()

@@ -24,10 +24,17 @@
 
 #include <string>
 
-std::string Base64Encode(const std::string& s);
-std::string Base64Decode(const std::string& s);
-std::string hex2bin(const std::string& s);
-std::string bin2hex(const std::string& s);
+class CDMBase64
+{
+public:
+    CDMBase64();
+    virtual ~CDMBase64();
+
+    std::string Base64Encode(const std::string& s);
+    std::string Base64Decode(const std::string& s);
+    std::string hex2bin(const std::string& s);
+    std::string bin2hex(const std::string& s);
+};
 
 
 #endif // __DMBASE64_H_INCLUDE__
