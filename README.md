@@ -64,7 +64,17 @@ local decode = des:Decode(DES3ContextDecKey, DES3Block, encode)
 
 print("des -> " .. decode)
 ```
+
+```output
+rc -> hello world
+md5 -> 5EB63BBBE01EEED093CB22BB8F5ACDC3
+crc -> 222957957
+base64 -> hello world
+des -> 鑥?剔?;鹰苠嵸
+des -> hello world
+```
 ## Contacts
+
 [![Join the chat](https://badges.gitter.im/brinkqiang/luacrypto/Lobby.svg)](https://gitter.im/brinkqiang/luacrypto)
 
 ## Thanks
