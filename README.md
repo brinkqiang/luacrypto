@@ -26,6 +26,21 @@ install cmake
 
 ## Intro
 luacrypto
+
+win
+```
+build.bat
+cd bin\relwithdebinfo
+lua ..\script\test.lua  
+```
+
+linux
+```
+bash build.sh
+cd bin\relwithdebinfo
+lua ..\script\test.lua  
+```
+
 ```lua
 local luacrypto = require("luacrypto")
 
