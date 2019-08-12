@@ -77,7 +77,7 @@ script:
   - popd
 
 after_success:
-  - "if [ -f bin/luacryptotest ] ; then bin/luacryptotest ; fi"
+  - echo success
 
 after_failure:
   - echo failure
