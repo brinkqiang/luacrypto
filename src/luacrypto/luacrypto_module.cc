@@ -53,8 +53,8 @@ namespace lua_module
             "DESGenKey", sol::resolve<void(DMDES3Block *pIV)>(&CDMDes::DESGenKey),
             "DESGenEncodeKey", sol::resolve<void(DMDES3Context *pCtx, DMDES3Block &oKey)>(&CDMDes::DESGenEncKeySche),
             "DESGenDecodeKey", sol::resolve<void(DMDES3Context *pCtx, DMDES3Block &oKey)>(&CDMDes::DESGenDecKeySche),
-            "Encode", sol::resolve<std::string(DMDES3Context *pCtx, DMDES3Block *pIV, std::string& strInput)>(&CDMDes::Encode),
-            "Decode", sol::resolve<std::string(DMDES3Context *pCtx, DMDES3Block *pIV, std::string& strInput)>(&CDMDes::Decode)
+            "Encode", sol::resolve<std::string(DMDES3Context *pCtx, DMDES3Block *pIV, const std::string& strInput)>(&CDMDes::Encode),
+            "Decode", sol::resolve<std::string(DMDES3Context *pCtx, DMDES3Block *pIV, const std::string& strInput)>(&CDMDes::Decode)
             );
 
         module.new_usertype<CDMCRC>("crc",

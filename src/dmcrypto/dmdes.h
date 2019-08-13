@@ -213,11 +213,11 @@ public:
 
     std::string Encode(DMDES3Context *pCtx,
         DMDES3Block *pIV,
-        std::string& strInput);
+        const std::string& strInput);
 
     std::string Decode(DMDES3Context *pCtx,
         DMDES3Block *pIV,
-        std::string& strInput);
+        const std::string& strInput);
 };
 
     /** @} */
