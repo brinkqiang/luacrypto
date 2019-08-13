@@ -20,13 +20,13 @@
 // SOFTWARE.
 
 #include "luacrypto_module.h"
-#include "sol.hpp"
+
 #include "dmrc.hpp"
 #include "dmdes.h"
 #include "dmmd5.h"
 #include "dmcrc.h"
 #include "dmbase64.h"
-
+#include "sol.hpp"
 namespace lua_module
 {
     static sol::table require_api(sol::this_state L) {
