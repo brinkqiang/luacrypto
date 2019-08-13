@@ -42,7 +42,7 @@ namespace lua_module
 
         module.new_usertype<CDMMD5>("md5",
             sol::constructors<CDMMD5()>(),
-            "GetMD5", sol::overload(sol::resolve<std::string(std::string&)>(&CDMMD5::GetMD5))
+            "GetMD5", (sol::resolve<std::string(std::string&)>(&CDMMD5::GetMD5))
             );
 
         module.new_usertype<DMDES3Context>("DES3Context");
@@ -50,11 +50,11 @@ namespace lua_module
 
         module.new_usertype<CDMDes>("des",
             sol::constructors<CDMDes()>(),
-            "DESGenKey", sol::overload(sol::resolve<void(DMDES3Block *pIV)>(&CDMDes::DESGenKey)),
-            "DESGenEncodeKey", sol::overload(sol::resolve<void(DMDES3Context *pCtx, DMDES3Block &oKey)>(&CDMDes::DESGenEncKeySche)),
-            "DESGenDecodeKey", sol::overload(sol::resolve<void(DMDES3Context *pCtx, DMDES3Block &oKey)>(&CDMDes::DESGenDecKeySche)),
-            "Encode", sol::overload(sol::resolve<std::string(DMDES3Context *pCtx, DMDES3Block *pIV, std::string& strInput)>(&CDMDes::Encode)),
-            "Decode", sol::overload(sol::resolve<std::string(DMDES3Context *pCtx, DMDES3Block *pIV, std::string& strInput)>(&CDMDes::Decode))
+            "DESGenKey", sol::resolve<void(DMDES3Block *pIV)>(&CDMDes::DESGenKey),
+            "DESGenEncodeKey", sol::resolve<void(DMDES3Context *pCtx, DMDES3Block &oKey)>(&CDMDes::DESGenEncKeySche),
+            "DESGenDecodeKey", sol::resolve<void(DMDES3Context *pCtx, DMDES3Block &oKey)>(&CDMDes::DESGenDecKeySche),
+            "Encode", sol::resolve<std::string(DMDES3Context *pCtx, DMDES3Block *pIV, std::string& strInput)>(&CDMDes::Encode),
+            "Decode", sol::resolve<std::string(DMDES3Context *pCtx, DMDES3Block *pIV, std::string& strInput)>(&CDMDes::Decode)
             );
 
         module.new_usertype<CDMCRC>("crc",
@@ -63,10 +63,10 @@ namespace lua_module
 
         module.new_usertype<CDMBase64>("base64",
             sol::constructors<CDMBase64()>(),
-            "Encode", sol::overload(&CDMBase64::Base64Encode),
-            "Decode", sol::overload(&CDMBase64::Base64Decode),
-            "hex2bin", sol::overload(&CDMBase64::hex2bin),
-            "bin2hex", sol::overload(&CDMBase64::bin2hex)
+            "Encode", (&CDMBase64::Base64Encode),
+            "Decode", (&CDMBase64::Base64Decode),
+            "hex2bin", (&CDMBase64::hex2bin),
+            "bin2hex", (&CDMBase64::bin2hex)
             );
 
         return module;
