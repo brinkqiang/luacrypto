@@ -59,7 +59,7 @@ namespace lua_module
 
         module.new_usertype<CDMCRC>("crc",
             sol::constructors<CDMCRC()>(),
-            "GetCRC", sol::overload(&CDMCRC::GetCRC));
+            "GetCRC", (&CDMCRC::GetCRC);
 
         module.new_usertype<CDMBase64>("base64",
             sol::constructors<CDMBase64()>(),
