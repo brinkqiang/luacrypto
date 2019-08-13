@@ -139,7 +139,7 @@ class CDMMD5 {
         }
     }
 
-    inline std::string GetMD5(std::string& strData) {
+    inline std::string GetMD5(const std::string& strData) {
         unsigned char format[33] = {0};
 
         MD5Update((unsigned char*)strData.data(), strData.size());

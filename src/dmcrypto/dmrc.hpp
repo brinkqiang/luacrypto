@@ -59,7 +59,7 @@ public:
         arc4_setup(&m_oDecryptContext, (const unsigned char*)m_strDecryptKey.c_str(), (unsigned int)m_strDecryptKey.size());
     }
 
-    std::string Encrypt(std::string& strBuf)
+    std::string Encrypt(const std::string& strBuf)
     {
         arc4_crypt( &m_oEncryptContext, strBuf.size(), (const unsigned char*)strBuf.data(), (unsigned char*)strBuf.data());
         return strBuf;
@@ -77,7 +77,7 @@ public:
         return pBuf;
     }
 
-    std::string Decrypt(std::string& strBuf)
+    std::string Decrypt(const std::string& strBuf)
     {
         arc4_crypt( &m_oDecryptContext, strBuf.size(), (const unsigned char*)strBuf.data(), (unsigned char*)strBuf.data());
         return strBuf;

@@ -92,7 +92,7 @@ class CDMCRC {
         return _value ^ 0xFFFFFFFF;
     }
 
-    inline uint32_t GetCRC(std::string& strData)
+    inline uint32_t GetCRC(const std::string& strData)
     {
         return CalculateDigest(strData.data(), strData.size());
     }
