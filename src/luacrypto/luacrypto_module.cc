@@ -36,13 +36,13 @@ namespace lua_module
         module.new_usertype<CDMRC>("rc4",
             sol::constructors<CDMRC()>(),
             "SetKey", &CDMRC::SetKey,
-            "Encode", sol::overload(sol::resolve<std::string(std::string&)>(&CDMRC::Encrypt), sol::resolve< char* (char* pBuf, size_t len)>(&CDMRC::Encrypt)),
-            "Decode", sol::overload(sol::resolve<std::string(std::string&)>(&CDMRC::Decrypt), sol::resolve< char* (char* pBuf, size_t len)>(&CDMRC::Decrypt))
+            "Encode", sol::resolve<std::string(std::string&)>(&CDMRC::Encrypt),
+            "Decode", sol::resolve<std::string(std::string&)>(&CDMRC::Decrypt)
             );
 
         module.new_usertype<CDMMD5>("md5",
             sol::constructors<CDMMD5()>(),
-            "GetMD5", (sol::resolve<std::string(std::string&)>(&CDMMD5::GetMD5))
+            "GetMD5", sol::resolve<std::string(std::string&)>(&CDMMD5::GetMD5)
             );
 
         module.new_usertype<DMDES3Context>("DES3Context");
