@@ -105,7 +105,7 @@ public:
     * 输入输出参数，将被初始化的3－DES块结构
     * @return void
     */
-    void DESGenKey(DMDES3Block *pIV);
+    void DES3GenKey(DMDES3Block *pIV);
 
     /**
     * @brief
@@ -125,7 +125,7 @@ public:
     * @param oKey : [in]des block [输入参数]DES块
     * @return void
     */
-    void DESGenEncKeySche(DMDES3Context *pCtx, DMDES3Block &oKey);
+    void DES3GenEncKeySche(DMDES3Context *pCtx, DMDES3Block &oKey);
 
     /**
     * @brief
@@ -145,7 +145,7 @@ public:
     * @param oKey : [in]des block [输入参数]DES块
     * @return void
     */
-    void DESGenDecKeySche(DMDES3Context *pCtx, DMDES3Block &oKey);
+    void DES3GenDecKeySche(DMDES3Context *pCtx, DMDES3Block &oKey);
 
     /**
     * @brief

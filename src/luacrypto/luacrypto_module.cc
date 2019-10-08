@@ -18,7 +18,7 @@
 // LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
-
+#include "sol.hpp"
 #include "luacrypto_module.h"
 
 #include "dmrc.hpp"
@@ -26,7 +26,7 @@
 #include "dmmd5.h"
 #include "dmcrc.h"
 #include "dmbase64.h"
-#include "sol.hpp"
+
 namespace lua_module
 {
     static sol::table require_api(sol::this_state L) {
@@ -50,11 +50,11 @@ namespace lua_module
 
         module.new_usertype<CDMDes>("des",
             sol::constructors<CDMDes()>(),
-            "DESGenKey", sol::resolve<void(DMDES3Block *pIV)>(&CDMDes::DESGenKey),
-            "DESGenEncodeKey", sol::resolve<void(DMDES3Context *pCtx, DMDES3Block &oKey)>(&CDMDes::DESGenEncKeySche),
-            "DESGenDecodeKey", sol::resolve<void(DMDES3Context *pCtx, DMDES3Block &oKey)>(&CDMDes::DESGenDecKeySche),
-            "Encode", sol::resolve<std::string(DMDES3Context *pCtx, DMDES3Block *pIV, const std::string& strInput)>(&CDMDes::Encode),
-            "Decode", sol::resolve<std::string(DMDES3Context *pCtx, DMDES3Block *pIV, const std::string& strInput)>(&CDMDes::Decode)
+            "DESGenKey", (&CDMDes::DES3GenKey),
+            "DESGenEncodeKey", (&CDMDes::DES3GenEncKeySche),
+            "DESGenDecodeKey", (&CDMDes::DES3GenDecKeySche),
+            "Encode", (&CDMDes::Encode),
+            "Decode", (&CDMDes::Decode)
             );
 
         module.new_usertype<CDMCRC>("crc",

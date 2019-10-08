@@ -6,7 +6,7 @@ void CDMDes::DESGenKey(DMESBlock* pIV)
     DESRandomKey(pIV);
 }
 
-void CDMDes::DESGenKey(DMDES3Block* pIV)
+void CDMDes::DES3GenKey(DMDES3Block* pIV)
 {
     GenDES3Key(pIV);
 }
@@ -16,7 +16,7 @@ void CDMDes::DESGenEncKeySche(DMDESContext *pCtx, DMESBlock& oKey)
     DESSetEncKey(pCtx, oKey.acBlock);
 }
 
-void CDMDes::DESGenEncKeySche(DMDES3Context *pCtx, DMDES3Block& oKey)
+void CDMDes::DES3GenEncKeySche(DMDES3Context *pCtx, DMDES3Block& oKey)
 {
     DES3SetEncKey(pCtx, &oKey);
 }
@@ -27,7 +27,7 @@ void CDMDes::DESGenDecKeySche(DMDESContext *pCtx, DMESBlock& oKey)
     DESSetDecKey(pCtx, oKey.acBlock);
 }
 
-void CDMDes::DESGenDecKeySche(DMDES3Context *pCtx, DMDES3Block& oKey)
+void CDMDes::DES3GenDecKeySche(DMDES3Context *pCtx, DMDES3Block& oKey)
 {
     DES3SetDecKey(pCtx, &oKey);
 }
