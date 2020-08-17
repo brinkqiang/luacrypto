@@ -2,6 +2,7 @@
 local luacrypto = require("luacrypto")
 
 local rc = luacrypto.rc4.new()
+
 rc:SetKey("hello world")
 
 local str = rc:Encode("hello world")
