@@ -18,14 +18,14 @@
 
 #define LUA_VERSION_MAJOR	"5"
 #define LUA_VERSION_MINOR	"4"
-#define LUA_VERSION_RELEASE	"0"
+#define LUA_VERSION_RELEASE	"3"
 
 #define LUA_VERSION_NUM			504
 #define LUA_VERSION_RELEASE_NUM		(LUA_VERSION_NUM * 100 + 0)
 
 #define LUA_VERSION	"Lua " LUA_VERSION_MAJOR "." LUA_VERSION_MINOR
 #define LUA_RELEASE	LUA_VERSION "." LUA_VERSION_RELEASE
-#define LUA_COPYRIGHT	LUA_RELEASE "  Copyright (C) 1994-2019 Lua.org, PUC-Rio"
+#define LUA_COPYRIGHT	LUA_RELEASE "  Copyright (C) 1994-2021 Lua.org, PUC-Rio"
 #define LUA_AUTHORS	"R. Ierusalimschy, L. H. de Figueiredo, W. Celes"
 
 
@@ -72,7 +72,7 @@ typedef struct lua_State lua_State;
 #define LUA_TUSERDATA		7
 #define LUA_TTHREAD		8
 
-#define LUA_NUMTAGS		9
+#define LUA_NUMTYPES		9
 
 
 
@@ -131,15 +131,7 @@ typedef void * (*lua_Alloc) (void *ud, void *ptr, size_t osize, size_t nsize);
 typedef void (*lua_WarnFunction) (void *ud, const char *msg, int tocont);
 
 
-/*
-** ===============================================================
-** override io stream
-** ===============================================================
-*/
-typedef int (*lua_IOStream) (const char *filename, char **stream, 
-    size_t *length);
 
-typedef int (*lua_Readable) (const char *filename);
 
 /*
 ** generic extra include file
@@ -159,7 +151,6 @@ extern const char lua_ident[];
 ** state manipulation
 */
 LUA_API lua_State *(lua_newstate) (lua_Alloc f, void *ud);
-LUA_API lua_State *(lua_newstateex) (lua_Alloc f, void *ud, lua_IOStream s, lua_Readable r);
 LUA_API void       (lua_close) (lua_State *L);
 LUA_API lua_State *(lua_newthread) (lua_State *L);
 LUA_API int        (lua_resetthread) (lua_State *L);
@@ -356,7 +347,8 @@ LUA_API size_t   (lua_stringtonumber) (lua_State *L, const char *s);
 LUA_API lua_Alloc (lua_getallocf) (lua_State *L, void **ud);
 LUA_API void      (lua_setallocf) (lua_State *L, lua_Alloc f, void *ud);
 
-LUA_API void  (lua_toclose) (lua_State *L, int idx);
+LUA_API void (lua_toclose) (lua_State *L, int idx);
+LUA_API void (lua_closeslot) (lua_State *L, int idx);
 
 
 /*
@@ -420,6 +412,8 @@ LUA_API void  (lua_toclose) (lua_State *L, int idx);
 #define lua_newuserdata(L,s)	lua_newuserdatauv(L,s,1)
 #define lua_getuservalue(L,idx)	lua_getiuservalue(L,idx,1)
 #define lua_setuservalue(L,idx)	lua_setiuservalue(L,idx,1)
+
+#define LUA_NUMTAGS		LUA_NUMTYPES
 
 /* }============================================================== */
 
@@ -498,7 +492,7 @@ struct lua_Debug {
 
 
 /******************************************************************************
-* Copyright (C) 1994-2019 Lua.org, PUC-Rio.
+* Copyright (C) 1994-2021 Lua.org, PUC-Rio.
 *
 * Permission is hereby granted, free of charge, to any person obtaining
 * a copy of this software and associated documentation files (the

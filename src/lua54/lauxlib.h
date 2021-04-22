@@ -12,11 +12,12 @@
 #include <stddef.h>
 #include <stdio.h>
 
+#include "luaconf.h"
 #include "lua.h"
 
 
 /* global table */
-#define	LUA_GNAME	"_G"
+#define LUA_GNAME	"_G"
 
 
 typedef struct luaL_Buffer luaL_Buffer;
@@ -99,8 +100,6 @@ LUALIB_API int (luaL_loadstring) (lua_State *L, const char *s);
 
 LUALIB_API lua_State *(luaL_newstate) (void);
 
-LUALIB_API lua_State *(luaL_newstateex) (lua_Alloc c, lua_IOStream s, lua_Readable r);
-
 LUALIB_API lua_Integer (luaL_len) (lua_State *L, int idx);
 
 LUALIB_API void luaL_addgsub (luaL_Buffer *b, const char *s,
@@ -117,6 +116,7 @@ LUALIB_API void (luaL_traceback) (lua_State *L, lua_State *L1,
 
 LUALIB_API void (luaL_requiref) (lua_State *L, const char *modname,
                                  lua_CFunction openf, int glb);
+
 /*
 ** ===============================================================
 ** some useful macros
@@ -131,10 +131,10 @@ LUALIB_API void (luaL_requiref) (lua_State *L, const char *modname,
   (luaL_checkversion(L), luaL_newlibtable(L,l), luaL_setfuncs(L,l,0))
 
 #define luaL_argcheck(L, cond,arg,extramsg)	\
-		((void)((cond) || luaL_argerror(L, (arg), (extramsg))))
+	((void)(luai_likely(cond) || luaL_argerror(L, (arg), (extramsg))))
 
 #define luaL_argexpected(L,cond,arg,tname)	\
-		((void)((cond) || luaL_typeerror(L, (arg), (tname))))
+	((void)(luai_likely(cond) || luaL_typeerror(L, (arg), (tname))))
 
 #define luaL_checkstring(L,n)	(luaL_checklstring(L, (n), NULL))
 #define luaL_optstring(L,n,d)	(luaL_optlstring(L, (n), (d), NULL))
@@ -156,6 +156,22 @@ LUALIB_API void (luaL_requiref) (lua_State *L, const char *modname,
 
 /* push the value used to represent failure/error */
 #define luaL_pushfail(L)	lua_pushnil(L)
+
+
+/*
+** Internal assertions for in-house debugging
+*/
+#if !defined(lua_assert)
+
+#if defined LUAI_ASSERT
+  #include <assert.h>
+  #define lua_assert(c)		assert(c)
+#else
+  #define lua_assert(c)		((void)0)
+#endif
+
+#endif
+
 
 
 /*
@@ -185,6 +201,8 @@ struct luaL_Buffer {
    ((B)->b[(B)->n++] = (c)))
 
 #define luaL_addsize(B,s)	((B)->n += (s))
+
+#define luaL_buffsub(B,s)	((B)->n -= (s))
 
 LUALIB_API void (luaL_buffinit) (lua_State *L, luaL_Buffer *B);
 LUALIB_API char *(luaL_prepbuffsize) (luaL_Buffer *B, size_t sz);
