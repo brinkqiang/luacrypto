@@ -44,12 +44,20 @@ print("des -> " .. decode)
 
 local aes = luacrypto.aes.new()
 
-local plain = "hello world12345"
+local plain = "hello world12345" -- Plaintext length must be divisible by 16
+local iv = "hello world"
 local key = "hello world"
 
 local aes_encode = aes:EncodeECB(plain, key)
 
-print("aes -> " .. bin2hex(aes_encode))
+print("aes_ecb -> " .. bin2hex(aes_encode))
 local aes_decode = aes:DecodeECB(aes_encode, key)
 
-print("aes -> " .. aes_decode)
+print("aes_ecb -> " .. aes_decode)
+
+local aes_encode2 = aes:EncodeCFB(plain, key, iv)
+
+print("aes_cfb -> " .. bin2hex(aes_encode2))
+local aes_decode2 = aes:DecodeCFB(aes_encode2, key, iv)
+
+print("aes_cfb -> " .. aes_decode2)
