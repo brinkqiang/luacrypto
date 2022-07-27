@@ -18,7 +18,7 @@
 // LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
-#include "sol.hpp"
+#include "sol/sol.hpp"
 #include "luacrypto_module.h"
 
 #include "dmrc.hpp"
@@ -26,6 +26,7 @@
 #include "dmmd5.h"
 #include "dmcrc.h"
 #include "dmbase64.h"
+#include "dmaes.h"
 
 namespace lua_module
 {
@@ -68,6 +69,12 @@ namespace lua_module
             "Decode", (&CDMBase64::Base64Decode),
             "hex2bin", (&CDMBase64::hex2bin),
             "bin2hex", (&CDMBase64::bin2hex)
+            );
+
+        module.new_usertype<CDMAES>("aes",
+            sol::constructors<CDMAES()>(),
+            "EncodeECB", sol::resolve<std::string(std::string, std::string)>(&CDMAES::EncryptECB),
+            "DecodeECB", sol::resolve<std::string(std::string, std::string)>(&CDMAES::DecryptECB)
             );
 
         return module;

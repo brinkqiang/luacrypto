@@ -1,6 +1,11 @@
 
 local luacrypto = require("luacrypto")
 
+function bin2hex(s)
+    s = string.gsub(s,"(.)",function (x) return string.format("%02X ",string.byte(x)) end)
+    return s
+end
+
 local rc = luacrypto.rc4.new()
 
 rc:SetKey("hello world")
@@ -31,8 +36,20 @@ des:DESGenDecodeKey(DES3ContextDecKey, DES3Block)
 
 local encode = des:Encode(DES3ContextEncKey, DES3Block, "hello world")
 
-print("des -> " .. encode)
+print("des -> " .. bin2hex(encode))
 
 local decode = des:Decode(DES3ContextDecKey, DES3Block, encode)
 
 print("des -> " .. decode)
+
+local aes = luacrypto.aes.new()
+
+local plain = "hello world12345"
+local key = "hello world"
+
+local aes_encode = aes:EncodeECB(plain, key)
+
+print("aes -> " .. bin2hex(aes_encode))
+local aes_decode = aes:DecodeECB(aes_encode, key)
+
+print("aes -> " .. aes_decode)

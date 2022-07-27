@@ -11,6 +11,11 @@
 enum class AESKeyLength { AES_128, AES_192, AES_256 };
 
 class CDMAES {
+public:
+    CDMAES(const AESKeyLength keyLength = AESKeyLength::AES_256);
+
+    virtual ~CDMAES();
+
 private:
     int Nb;
     int Nk;
@@ -63,7 +68,6 @@ private:
     unsigned char* VectorToArray(std::vector<unsigned char>& a);
 
 public:
-    explicit CDMAES(const AESKeyLength keyLength = AESKeyLength::AES_256);
 
     unsigned char* EncryptECB(const unsigned char in[], unsigned int inLen,
         const unsigned char key[]);
@@ -104,6 +108,28 @@ public:
     std::vector<unsigned char> DecryptCFB(std::vector<unsigned char> in,
         std::vector<unsigned char> key,
         std::vector<unsigned char> iv);
+
+    std::string EncryptECB(std::string in,
+        std::string key);
+
+    std::string DecryptECB(std::string in,
+        std::string key);
+
+    std::string EncryptCBC(std::string in,
+        std::string key,
+        std::string iv);
+
+    std::string DecryptCBC(std::string in,
+        std::string key,
+        std::string iv);
+
+    std::string EncryptCFB(std::string in,
+        std::string key,
+        std::string iv);
+
+    std::string DecryptCFB(std::string in,
+        std::string key,
+        std::string iv);
 
     void printHexArray(unsigned char a[], unsigned int n);
 

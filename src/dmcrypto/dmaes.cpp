@@ -1,5 +1,6 @@
 #include "dmaes.h"
 #include <string>
+#include <numeric>
 
 CDMAES::CDMAES(const AESKeyLength keyLength) {
     this->Nb = 4;
@@ -21,6 +22,11 @@ CDMAES::CDMAES(const AESKeyLength keyLength) {
     blockBytesLen = 4 * this->Nb * sizeof(unsigned char);
 }
 
+CDMAES::~CDMAES()
+{
+
+}
+
 unsigned char* CDMAES::EncryptECB(const unsigned char in[], unsigned int inLen,
     const unsigned char key[]) {
     CheckLength(inLen);
@@ -36,6 +42,17 @@ unsigned char* CDMAES::EncryptECB(const unsigned char in[], unsigned int inLen,
     return out;
 }
 
+
+std::string CDMAES::EncryptECB(std::string in, std::string key)
+{
+    unsigned char* out = EncryptECB((unsigned char*)in.data(), in.size(), (unsigned char*)key.data());
+
+    std::string strRet((char*)out, in.size());
+    delete[] out;
+
+    return strRet;
+}
+
 unsigned char* CDMAES::DecryptECB(const unsigned char in[], unsigned int inLen,
     const unsigned char key[]) {
     CheckLength(inLen);
@@ -49,6 +66,17 @@ unsigned char* CDMAES::DecryptECB(const unsigned char in[], unsigned int inLen,
     delete[] roundKeys;
 
     return out;
+}
+
+
+std::string CDMAES::DecryptECB(std::string in, std::string key)
+{
+    unsigned char* out = DecryptECB((unsigned char*)in.data(), in.size(), (unsigned char*)key.data());
+
+    std::string strRet((char*)out, in.size());
+    delete[] out;
+
+    return strRet;
 }
 
 unsigned char* CDMAES::EncryptCBC(const unsigned char in[], unsigned int inLen,
@@ -72,6 +100,12 @@ unsigned char* CDMAES::EncryptCBC(const unsigned char in[], unsigned int inLen,
     return out;
 }
 
+
+std::string CDMAES::EncryptCBC(std::string in, std::string key, std::string iv)
+{
+    return "";
+}
+
 unsigned char* CDMAES::DecryptCBC(const unsigned char in[], unsigned int inLen,
     const unsigned char key[],
     const unsigned char* iv) {
@@ -91,6 +125,12 @@ unsigned char* CDMAES::DecryptCBC(const unsigned char in[], unsigned int inLen,
     delete[] roundKeys;
 
     return out;
+}
+
+
+std::string CDMAES::DecryptCBC(std::string in, std::string key, std::string iv)
+{
+    return "";
 }
 
 unsigned char* CDMAES::EncryptCFB(const unsigned char in[], unsigned int inLen,
@@ -116,6 +156,12 @@ unsigned char* CDMAES::EncryptCFB(const unsigned char in[], unsigned int inLen,
     return out;
 }
 
+
+std::string CDMAES::EncryptCFB(std::string in, std::string key, std::string iv)
+{
+    return "";
+}
+
 unsigned char* CDMAES::DecryptCFB(const unsigned char in[], unsigned int inLen,
     const unsigned char key[],
     const unsigned char* iv) {
@@ -137,6 +183,12 @@ unsigned char* CDMAES::DecryptCFB(const unsigned char in[], unsigned int inLen,
     delete[] roundKeys;
 
     return out;
+}
+
+
+std::string CDMAES::DecryptCFB(std::string in, std::string key, std::string iv)
+{
+    return "";
 }
 
 void CDMAES::CheckLength(unsigned int len) {
