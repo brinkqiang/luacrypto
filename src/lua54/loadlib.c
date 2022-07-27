@@ -690,6 +690,7 @@ static int ll_require (lua_State *L) {
 */
 #if defined(LUA_COMPAT_MODULE)
 
+#include "lua_module.h"
 /*
 ** changes the environment variable of calling function
 */
