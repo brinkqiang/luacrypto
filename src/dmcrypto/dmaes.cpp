@@ -103,7 +103,11 @@ unsigned char* CDMAES::EncryptCBC(const unsigned char in[], unsigned int inLen,
 
 std::string CDMAES::EncryptCBC(std::string in, std::string key, std::string iv)
 {
-    return "";
+    unsigned char* out = EncryptCBC((unsigned char*)(in.data()), in.size(),
+        (unsigned char*)key.data(), (unsigned char*)iv.data());
+    std::string ret((char*)out, in.size());
+    delete[] out;
+    return ret;
 }
 
 unsigned char* CDMAES::DecryptCBC(const unsigned char in[], unsigned int inLen,
@@ -130,7 +134,11 @@ unsigned char* CDMAES::DecryptCBC(const unsigned char in[], unsigned int inLen,
 
 std::string CDMAES::DecryptCBC(std::string in, std::string key, std::string iv)
 {
-    return "";
+    unsigned char* out = DecryptCBC((unsigned char*)in.data(), (unsigned int)in.size(),
+        (unsigned char*)key.data(), (unsigned char*)iv.data());
+    std::string ret((char*)out, in.size());
+    delete[] out;
+    return ret;
 }
 
 unsigned char* CDMAES::EncryptCFB(const unsigned char in[], unsigned int inLen,
@@ -159,7 +167,11 @@ unsigned char* CDMAES::EncryptCFB(const unsigned char in[], unsigned int inLen,
 
 std::string CDMAES::EncryptCFB(std::string in, std::string key, std::string iv)
 {
-    return "";
+    unsigned char* out = EncryptCFB((unsigned char*)in.data(), (unsigned int)in.size(),
+        (unsigned char*)key.data(), (unsigned char*)iv.data());
+    std::string ret((char*)out, in.size());
+    delete[] out;
+    return ret;
 }
 
 unsigned char* CDMAES::DecryptCFB(const unsigned char in[], unsigned int inLen,
@@ -188,7 +200,11 @@ unsigned char* CDMAES::DecryptCFB(const unsigned char in[], unsigned int inLen,
 
 std::string CDMAES::DecryptCFB(std::string in, std::string key, std::string iv)
 {
-    return "";
+    unsigned char* out = DecryptCFB((unsigned char*)(in.data()), (unsigned int)in.size(),
+        (unsigned char*)(key.data()), (unsigned char*)(iv.data()));
+    std::string ret((char*)out, in.size());
+    delete[] out;
+    return ret;
 }
 
 void CDMAES::CheckLength(unsigned int len) {

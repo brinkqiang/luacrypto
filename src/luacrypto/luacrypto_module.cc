@@ -74,7 +74,11 @@ namespace lua_module
         module.new_usertype<CDMAES>("aes",
             sol::constructors<CDMAES()>(),
             "EncodeECB", sol::resolve<std::string(std::string, std::string)>(&CDMAES::EncryptECB),
-            "DecodeECB", sol::resolve<std::string(std::string, std::string)>(&CDMAES::DecryptECB)
+            "DecodeECB", sol::resolve<std::string(std::string, std::string)>(&CDMAES::DecryptECB),
+            "EncodeCBC", sol::resolve<std::string(std::string, std::string, std::string)>(&CDMAES::EncryptCBC),
+            "DecodeCBC", sol::resolve<std::string(std::string, std::string, std::string)>(&CDMAES::DecryptCBC),
+            "EncodeCFB", sol::resolve<std::string(std::string, std::string, std::string)>(&CDMAES::EncryptCFB),
+            "DecodeCFB", sol::resolve<std::string(std::string, std::string, std::string)>(&CDMAES::DecryptCFB)
             );
 
         return module;
