@@ -90,6 +90,4 @@ des -> hello world
 ```
 ## Contacts
 
-[![Join the chat](https://badges.gitter.im/brinkqiang/luacrypto/Lobby.svg)](https://gitter.im/brinkqiang/luacrypto)
-
 ## Thanks
